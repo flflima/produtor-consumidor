@@ -2,15 +2,16 @@ package br.com.produtorconsumidor.buffer;
 
 public class Buffer 
 {
-	private int conteudo;
-	private boolean disponivel;
+	private int itens = 0;
+	private int capacidadeTotal = 10;
 
 	public synchronized void put(int id, int valor)
 	{
-		while (disponivel)
+		while (itens >= capacidadeTotal)
 		{
 			try 
 			{
+				System.out.println(">> Produtor " + id +" aguardando...\n");
 				wait();
 			}
 			catch (InterruptedException e) 
@@ -19,20 +20,20 @@ public class Buffer
 			}
 		}
 		
-		disponivel = true;
-		
-		this.conteudo  = valor;
-		System.out.println("Produtor " + id +" criando " + conteudo + " ...");
+		itens++;
+
+		System.out.println("Produtor " + id +" criando " + itens + "...\n");
 		
 		notifyAll();
 	}
 
 	public synchronized void get(int id) 
 	{
-		while (!disponivel)
+		while (itens <= 0)
 		{
 			try 
 			{
+				System.out.println(">> Consumidor " + id +" aguardando...\n");
 				wait();
 			}
 			catch (InterruptedException e) 
@@ -41,9 +42,9 @@ public class Buffer
 			}
 		}
 		
-		disponivel = false;
+		System.out.println("Consumidor " + id + " consumindo " + itens + "...\n");
 		
-		System.out.println("Consumidor " + id + " consumindo " + conteudo + " ...\n");
+		itens--;
 		
 		notifyAll();
 	}

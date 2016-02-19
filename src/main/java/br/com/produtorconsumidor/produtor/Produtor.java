@@ -16,9 +16,17 @@ public class Produtor extends Thread
 	@Override
 	public void run() 
 	{
-		for (int i = 1; i <= 10; i++)
+		for (int i = 1; i <= 100; i++)
 		{
 			buffer.put(idProdutor, i);	
+			try 
+			{
+				sleep((int)(Math.random() * 100));
+			}
+			catch (InterruptedException e) 
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 }
