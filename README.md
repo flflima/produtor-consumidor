@@ -1,1 +1,1 @@
-# produtor-consumidor
+Proposta de solução para o problema com Threads - Produtor X Consumidor.
