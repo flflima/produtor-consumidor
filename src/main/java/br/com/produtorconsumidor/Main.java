@@ -1,26 +1,22 @@
 package br.com.produtorconsumidor;
 
 import br.com.produtorconsumidor.buffer.Buffer;
-import br.com.produtorconsumidor.consumidor.Consumidor;
-import br.com.produtorconsumidor.produtor.Produtor;
+import br.com.produtorconsumidor.consumidor.Consumer;
+import br.com.produtorconsumidor.produtor.Producer;
 
-public class Main 
-{
+public class Main {
+    public static void main(String[] args) {
+        Buffer buffer = new Buffer();
+        Producer p1 = new Producer(1, buffer);
+        Consumer c1 = new Consumer(1, buffer);
 
-	public static void main(String[] args) 
-	{
-		Buffer buffer = new Buffer();
-		Produtor p1 = new Produtor(1, buffer);
-		Consumidor c1 = new Consumidor(1, buffer);
-		
-		p1.start();
-		c1.start();
-		
-		Produtor p2 = new Produtor(2, buffer);
-		Consumidor c2 = new Consumidor(2, buffer);
-		
-		p2.start();
-		c2.start();
-	}
+        p1.start();
+        c1.start();
 
+        Producer p2 = new Producer(2, buffer);
+        Consumer c2 = new Consumer(2, buffer);
+
+        p2.start();
+        c2.start();
+    }
 }
